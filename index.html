@@ -5,451 +5,351 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Enrollment Hub — Mockup (Rebuilt)</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<title>Enrollment Hub — HOME (wired to Admin)</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
 <style>
-    :root{
-      --bg:#f7f8fb;
-      --surface:#ffffff;
-      --ink:#1d2330;
-      --muted:#6b7380;
-      --primary:#2e4a7f;
-      --primary-600:#3b5da0;
-      --accent-teal:#2ab7a9;
-      --accent-teal-2:#3cd6c9;
-      --accent-yellow:#ffd166;
-      --accent-coral:#ff6b6b;
-      --success:#28c281;
-      --radius:16px;
-      --shadow: 0 6px 24px rgba(25,28,33,.06), 0 2px 8px rgba(25,28,33,.04);
-      --gap: 18px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      color:var(--ink);
-      background:var(--bg);
-      line-height:1.45;
-    }
-
-    /* Header */
-    .site-header{
-      position:sticky; top:0; z-index:100;
-      background:linear-gradient(90deg,var(--primary),var(--primary-600));
-      color:#fff;
-      padding:14px 20px;
-      box-shadow: 0 2px 10px rgba(0,0,0,.08);
-    }
-    .header-inner{ max-width:1200px; margin:0 auto; display:flex; align-items:center; gap:16px; }
-    .brand{ display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.4px; }
-    .brand .logo{ width:34px; height:34px; border-radius:8px; background:#fff1; display:grid; place-items:center;
-      font-weight:800; font-size:18px; border:1px solid rgba(255,255,255,.25); }
-    .spacer{flex:1}
-    .date-pill{ padding:8px 12px; border-radius:999px; background:#fff1; border:1px solid rgba(255,255,255,.15); font-size:14px; }
-
-    /* Top Links */
-    .top-links{ display:flex; gap:10px; flex-wrap:wrap; margin:12px 0 18px; }
-    .pill{
-      display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:999px;
-      background:#ffffff; border:1px solid #e6eaf5; text-decoration:none; color:var(--ink); font-weight:700;
-      box-shadow: 0 2px 8px rgba(25,28,33,.06);
-      transition: transform .06s ease, box-shadow .2s ease;
-    }
-    .pill:hover{ transform: translateY(-1px); box-shadow:var(--shadow); }
-    .pill.primary{ background:linear-gradient(90deg, var(--accent-teal), var(--accent-teal-2)); color:white; border:none; }
-
-    /* Layout */
-    .wrap{max-width:1200px;margin:20px auto;padding:0 20px}
-    .grid{ display:grid; grid-template-columns: 1.6fr .9fr; gap:var(--gap); }
-    @media (max-width: 980px){ .grid{grid-template-columns:1fr} }
-
-    /* Cards */
-    .card{ background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden; }
-    .card .head{ padding:14px 18px; font-weight:800; border-bottom:1px solid #eef0f5; display:flex; align-items:center; gap:10px; }
-    .card .sub{font-size:13px; color:var(--muted); font-weight:600}
-    .pad{padding:16px 18px}
-    .announcements .head{ background:linear-gradient(90deg, var(--accent-coral), #ff8c8c); color:#fff; }
-    .today .head, .training .head{ background:linear-gradient(90deg, var(--accent-teal), var(--accent-teal-2)); color:#fff; }
-    .quota .head{ background:linear-gradient(90deg, var(--accent-teal), var(--accent-teal-2)); color:#fff; }
-    .help .head{ background:linear-gradient(90deg, var(--accent-teal), var(--accent-teal-2)); color:#fff; }
-
-    .announcement{ display:flex; gap:14px; align-items:flex-start; padding:14px 18px; border-bottom:1px dashed #eceff6; }
-    .announcement:last-child{border-bottom:none}
-    .badge{ display:inline-flex; align-items:center; gap:6px; padding:4px 10px; font-size:12px; border-radius:999px; background:var(--accent-teal); color:white; font-weight:700; }
-
-    .list{ display:grid; gap:10px; }
-    .row{ display:flex; justify-content:space-between; align-items:center; background:#fafbff; border:1px solid #eef0f5; border-radius:12px; padding:10px 12px; }
-    .row .title{font-weight:700}
-    .row .meta{font-size:13px;color:var(--muted)}
-
-    /* Forms */
-    .form-grid{display:grid; gap:12px}
-    .f-row{display:grid; gap:6px}
-    label{font-size:14px; font-weight:700}
-    input[type="text"], textarea, select{ padding:10px 12px; border-radius:10px; border:1px solid #dfe3ec; background:#fff; font:inherit; }
-    textarea{min-height:84px; resize:vertical}
-    .actions{display:flex; gap:10px; justify-content:flex-end}
-    .btn{ display:inline-flex; align-items:center; gap:8px; border:none; border-radius:10px; padding:10px 14px; font-weight:800; cursor:pointer;
-      background:var(--primary); color:#fff; box-shadow: 0 6px 16px rgba(46,74,127,.18); }
-    .btn.linklike { background:#eef2ff; color:#2e4a7f; box-shadow:none; }
-    .muted{color:var(--muted)}
-    .chip{display:inline-flex;align-items:center;gap:8px; padding:6px 10px;border-radius:999px;background:#f4f6fb;font-size:12px}
-
-    /* Quota meters */
-    .meter{width:100%; height:14px; border-radius:999px; background:#e9edf4; overflow:hidden;}
-    .meter > span{display:block; height:100%; border-radius:999px; transition:width .4s ease;}
-    .t-teal{background:var(--accent-teal);}
-    .t-green{background:var(--success);}
-    .t-yellow{background:var(--accent-yellow);}
-    .t-coral{background:var(--accent-coral);}
-    .rows-pill{background:#fff; border:1px solid #edf0f6; border-radius:14px; box-shadow: 0 2px 8px rgba(0,0,0,.04);}
-    .rows-pill .row{background:transparent; border:none;}
-    .rows-pill .row + .row{border-top:1px solid #f1f3f8;}
-    .rows-pill .name{background:#f6f8fd; padding:6px 10px; border-radius:999px; font-weight:800; min-width:96px;}
-    .rows-pill .val{min-width:104px; text-align:right; font-weight:800; color:#344;}
-
-    /* Colored 1–3 scale buttons with active state */
-    .scale-buttons { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
-    .scale-btn { border:none; border-radius:999px; padding:10px 18px; font-weight:800; cursor:pointer; color:#fff; opacity:.9;
-                 transition:transform .06s ease, opacity .15s ease; }
-    .scale-btn:hover{ transform: translateY(-1px); opacity:1; }
-    .scale-1 { background:#28c281; } /* green */
-    .scale-2 { background:#ffd166; color:#333; } /* yellow */
-    .scale-3 { background:#ff6b6b; } /* red */
-    .scale-btn.active{ box-shadow: 0 6px 16px rgba(0,0,0,.12); opacity:1; }
-    .req { color:var(--accent-coral); font-weight:800 }
-  
-/* persistent Back to Home button */
-.home-fab{
-  position:fixed; top:14px; right:14px; z-index:9999;
-  display:inline-flex; align-items:center; gap:8px;
-  padding:10px 12px; border-radius:999px;
-  background:#ffffff; color:#1d2330; text-decoration:none; font-weight:800;
-  border:1px solid #e6eaf5; box-shadow: 0 6px 24px rgba(25,28,33,.06), 0 2px 8px rgba(25,28,33,.04);
-}
-.home-fab:hover{ transform: translateY(-1px); }
-@media (max-width: 560px){
-  .home-fab{ top:10px; right:10px; padding:8px 10px; }
-}
+  :root{
+    --bg:#f7f8fb; --surface:#fff; --ink:#1d2330; --muted:#6b7380; --border:#e6eaf5;
+    --primary:#2e4a7f; --primary-600:#3b5da0; --accent:#2ab7a9; --accent2:#3cd6c9;
+    --yellow:#ffd166; --coral:#ff6b6b; --success:#28c281;
+    --shadow:0 6px 24px rgba(25,28,33,.06), 0 2px 8px rgba(25,28,33,.04); --radius:16px; --gap:18px;
+  }
+  *{box-sizing:border-box}
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:Inter,system-ui; line-height:1.45 }
+  /* Header */
+  .site-header{ position:sticky; top:0; z-index:100; background:linear-gradient(90deg,var(--primary),var(--primary-600)); color:#fff; padding:12px 20px; box-shadow:0 2px 10px rgba(0,0,0,.08) }
+  .header-inner{ max-width:1200px; margin:0 auto; display:flex; align-items:center; gap:16px }
+  .brand{ display:flex; align-items:center; gap:12px }
+  .brand .logo{ width:182px; height:46px; display:flex; align-items:center; justify-content:center }
+  .brand .logo img{ width:100%; height:100%; object-fit:contain; filter:brightness(0) invert(1) }
+  .brand-title{ font-weight:800; letter-spacing:.4px; color:#fff }
+  .date-pill{ margin-left:8px; padding:8px 12px; border-radius:999px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); color:#fff; font-size:14px }
+  .wrap{ max-width:1200px; margin:20px auto; padding:0 20px }
+  /* Pills */
+  .top-links{ display:flex; gap:10px; flex-wrap:wrap; margin:12px 0 18px }
+  .pill{ display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:999px; background:#fff; border:1px solid var(--border); text-decoration:none; color:var(--ink); font-weight:700; box-shadow:0 2px 8px rgba(25,28,33,.06) }
+  .pill.primary{ background:linear-gradient(90deg,var(--accent),var(--accent2)); color:#fff; border:none }
+  .grid{ display:grid; grid-template-columns: 1.6fr .9fr; gap:var(--gap) }
+  @media (max-width:980px){ .grid{ grid-template-columns:1fr } }
+  /* Cards */
+  .card{ background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden }
+  .head{ padding:14px 18px; font-weight:800; border-bottom:1px solid #eef0f5; background:linear-gradient(90deg,var(--accent),var(--accent2)); color:#fff }
+  .pad{ padding:16px 18px }
+  .list{ display:grid; gap:10px }
+  .row{ display:flex; justify-content:space-between; align-items:center; background:#fafbff; border:1px solid #eef0f5; border-radius:12px; padding:10px 12px }
+  .title{ font-weight:700 } .meta{ font-size:13px; color:var(--muted) }
+  /* Quota meters */
+  .meter{ width:100%; height:14px; border-radius:999px; background:#e9edf4; overflow:hidden }
+  .meter > span{ display:block; height:100%; border-radius:999px; transition:width .3s ease }
+  .t-teal{ background:var(--accent) } .t-green{ background:var(--success) } .t-yellow{ background:var(--yellow) } .t-coral{ background:var(--coral) }
+  .rows-pill{ background:#fff; border:1px solid #edf0f6; border-radius:14px; box-shadow:0 2px 8px rgba(0,0,0,.04) }
+  .rows-pill .row{ background:transparent; border:none }
+  .rows-pill .row + .row{ border-top:1px solid #f1f3f8 }
+  .rows-pill .name{ background:#f6f8fd; padding:6px 10px; border-radius:999px; font-weight:800; min-width:96px }
+  .rows-pill .val{ min-width:120px; text-align:right; font-weight:800; color:#344 }
+  /* Form bits */
+  label{ font-size:14px; font-weight:700 }
+  input[type="text"], textarea, select{ padding:10px 12px; border-radius:10px; border:1px solid #dfe3ec; background:#fff; font:inherit }
+  textarea{ min-height:84px; resize:vertical }
+  .actions{ display:flex; gap:10px; justify-content:flex-end }
+  .btn{ display:inline-flex; align-items:center; gap:8px; border:none; border-radius:10px; padding:10px 14px; font-weight:800; cursor:pointer; background:var(--primary); color:#fff; box-shadow:0 6px 16px rgba(46,74,127,.18) }
 </style>
 </head>
-<body><a class="home-fab" href="home_with_admin_pill_WIRED.html">← Back to Home</a>
+<body>
 <header class="site-header">
 <div class="header-inner">
 <div class="brand">
-<div class="logo">EN</div>
-<div>ENROLLMENT HUB</div>
+<div class="logo"><img alt="ONE Music Schools" src="transparents.jpeg"/></div>
+<div class="brand-title">ENROLLMENT HUB</div>
+<div class="date-pill" id="today-pill">Today</div>
 </div>
 <div class="spacer"></div>
-<div class="date-pill" id="today-pill">Today</div>
 </div>
 </header>
 <main class="wrap">
-<!-- TOP LINKS -->
+<!-- Top pills -->
 <div class="top-links">
-<a class="pill primary" href="#checkin">Daily Check‑In</a>
-<a class="pill" href="studios_directory_WIRED.html">Studios Directory</a>
-<a class="pill" href="#quota">Quota Snapshot</a>
-<a class="pill" href="#training">Weekly Training</a>
-<a class="pill" href="#cc">Comments &amp; Concerns</a>
-<a class="pill" href="admin_access_WIRED.html">Admin Dashboard</a>
-</div>
+<a class="pill primary" href="#daily-checkin">Daily Check‑In</a>
+<a class="pill" href="#quick-links">Quick Links</a>
+<a class="pill" href="#studio-directory">Studio Directory</a>
+<a class="pill" href="#enrollment-links">Enrollment Links</a>
+<a class="pill" href="admin_dashboard_CONNECTED_preview.html" rel="noopener" target="_blank">Admin Dashboard</a></div>
 <div class="grid">
 <!-- LEFT -->
 <section class="col">
-<!-- Announcements -->
-<div class="card announcements">
-<div class="head">Announcements <span class="sub">Pinned &amp; recent</span></div>
-<div class="announcement"><span class="badge">Today</span> <div><strong>Phones are hot</strong> — prioritize HubSpot tasks; use the main lines for promo replies.</div></div>
-<div class="announcement"><span class="badge">This Week</span> <div><strong>Training Thursday</strong> — Closing objections refresher at 2:00pm.</div></div>
+<!-- Announcements (from admin 'announcements') -->
+<div class="card" id="ann-card">
+<div class="head">Announcements <span class="sub"></span></div>
+<div class="pad" id="ann-list">
+<!-- announcements render here -->
+</div>
 </div>
 <div class="pad"></div>
-<!-- Today -->
-<div class="card today">
+<!-- Today (from admin 'today' and 'teamMembers') -->
+<div class="card">
 <div class="head">Today</div>
 <div class="pad">
-<div class="list" style="margin-bottom:14px">
-<div class="row"><div><div class="title">Shifts</div><div class="meta">Hannah 10–3 • Megan 10–1 • Sydney 10–5 • Shy 12–5 • Montana N/A</div></div></div>
-<div class="row"><div><div class="title">Responsibilities</div><div class="meta">Sydney: Voicemails • Shy: Deals • Montana: Round‑robin</div></div></div>
-<div class="row"><div><div class="title">1:1s</div><div class="meta">Hannah 1:30 • Sydney 2:00</div></div></div>
+<div class="list" id="today-list">
+<!-- Shifts / Responsibilities / 1:1s render here -->
 </div>
 </div>
 </div>
-<!-- Weekly Training -->
 <div class="pad"></div>
-<div class="card training" id="training">
+<!-- Weekly Training (from admin 'thisWeek') -->
+<div class="card" id="training">
 <div class="head">Weekly Training <span class="sub">This week</span></div>
-<div class="pad">
-<div class="list" style="gap:12px">
-<div class="row" style="align-items:flex-start">
-<div>
-<div class="title">Handling “Price First” Calls in 30 Seconds</div>
-<div class="meta">Blip: Lead with trial → answer price briefly → loop back to value. Use the 3-line script and confirm next step.</div>
-</div>
-<a class="btn linklike" href="#" target="_blank">Watch video</a>
+<div class="pad" id="training-body">
+<!-- training blip renders here -->
 </div>
 </div>
-<div class="meta" style="margin-top:10px"><a href="#" style="text-decoration:none; font-weight:800; color:#2e4a7f">See all trainings →</a></div>
-</div>
-</div>
-<!-- Daily Check‑In -->
 <div class="pad"></div>
-<div class="card" id="checkin">
-<div class="head">Daily Check‑In <span class="sub">All fields required unless marked optional</span></div>
+<!-- Daily Check-In -->
+<div class="card" id="daily-checkin">
+<div class="head">Daily Check‑In</div>
 <div class="pad">
-<form class="form-grid" id="checkin-form" onsubmit="return onSubmitCheckin(event)">
-<div class="f-row">
-<label for="username">Name <span class="req">*</span></label>
-<select id="username" required="">
+<form id="checkin-form">
+<div style="display:grid; gap:10px">
+<label>Name
+                <select id="username" required="">
 <option disabled="" selected="" value="">Select your name</option>
-<option>Hannah</option>
-<option>Megan</option>
-<option>Sydney</option>
-<option>Shy</option>
-<option>Montana</option>
 </select>
+</label>
+<label>Today’s date
+                <input id="date" placeholder="MM-DD-YYYY" required="" type="text"/>
+</label>
+<label>How did your load feel overall today?
+                <div style="display:flex; gap:10px">
+<label><input name="load" required="" type="radio" value="1"/> 1</label>
+<label><input name="load" type="radio" value="2"/> 2</label>
+<label><input name="load" type="radio" value="3"/> 3</label>
 </div>
-<div class="f-row">
-<label for="date">Today’s date <span class="req">*</span></label>
-<input id="date" placeholder="MM-DD-YYYY" required="" type="text"/>
-</div>
-<div class="f-row">
-<label>How did your load feel overall today? <span class="req">*</span></label>
-<input id="load" required="" type="hidden"/>
-<div class="scale-buttons" id="load-buttons">
-<button class="scale-btn scale-1" data-val="1" type="button">1</button>
-<button class="scale-btn scale-2" data-val="2" type="button">2</button>
-<button class="scale-btn scale-3" data-val="3" type="button">3</button>
-</div>
-<div class="meta" style="margin-top:6px; display:flex; justify-content:space-between">
-<span>1 = Not at all</span>
-<span>3 = Overwhelmed</span>
-</div>
-</div>
-<div class="f-row">
-<label>Did you complete all your assigned deals? <span class="req">*</span></label>
-<div style="display:flex; gap:18px">
+</label>
+<label>Did you complete all your assigned deals?
+                <div style="display:flex; gap:10px">
 <label><input name="deals" required="" type="radio" value="Yes"/> Yes</label>
 <label><input name="deals" type="radio" value="No"/> No</label>
 </div>
-</div>
-<div class="f-row">
-<label>Did you complete all your assigned tasks? <span class="req">*</span></label>
-<div style="display:flex; gap:18px">
+</label>
+<label>Did you complete all your assigned tasks?
+                <div style="display:flex; gap:10px">
 <label><input name="tasks" required="" type="radio" value="Yes"/> Yes</label>
 <label><input name="tasks" type="radio" value="No"/> No</label>
 </div>
-</div>
-<div class="f-row">
-<label>Your responsibilities assigned for today (check all that apply) <span class="req">*</span></label>
-<div id="resp-group" style="display:grid; gap:8px">
+</label>
+<label>Your responsibilities assigned for today (check all that apply)</label>
+<div id="resp-group" style="display:grid; gap:6px">
 <label><input name="resp" type="checkbox" value="Respond to texts from those not working"/> Respond to texts from those not working</label>
 <label><input name="resp" type="checkbox" value="Follow up on voicemails"/> Follow up on voicemails</label>
 <label><input name="resp" type="checkbox" value="Round-robin new deals"/> Round-robin new deals</label>
 <label><input name="resp" type="checkbox" value="No responsibilities assigned today"/> No responsibilities assigned today</label>
 </div>
-<div class="meta">Please select at least one.</div>
-</div>
-<div class="f-row">
-<label for="notes">How did your day go? Anything on your mind, or anything we can do better as a team to help you out? <span class="muted">(Optional)</span></label>
+<label for="notes">How did your day go? (Optional)</label>
 <textarea id="notes" placeholder="Optional"></textarea>
+<div class="actions"><button class="btn" id="submitCheckin">Submit Check‑In</button></div>
 </div>
-<div class="actions">
-<button class="btn">Submit Check‑In</button>
-</div>
-<div class="meta"><strong>Everything above is required before submitting.</strong></div>
 </form>
+<div style="font-weight:700; margin:14px 0 6px; font-size:14px; color:#1d2330;">Comments &amp; Concerns (Optional)<span id="cc-badge" style="margin-left:8px; font-size:12px; font-weight:800; background:#ff6b6b; color:#fff; padding:2px 8px; border-radius:999px; display:none;">0</span></div>
+<div class="card" style="border:1px solid #eef0f5">
+<div class="pad">
+<label for="cc-text">Share any comments, concerns, or ideas</label>
+<textarea id="cc-text" placeholder="Type here..."></textarea>
+<div class="actions" style="justify-content:flex-end; margin-top:10px">
+<button class="btn" id="cc-submit">Submit</button>
+</div>
+<div class="meta" style="margin-top:8px; color:#6b7380">This sends directly to the inbox in your Admin Dashboard.</div>
+</div>
+</div>
 </div>
 </div>
 </section>
 <!-- RIGHT -->
 <aside class="col">
-<!-- Quota Snapshot (Quarterly) -->
-<div class="card quota" id="quota" style="border-radius:18px; overflow:hidden;">
-<div class="head"><span>Quota Snapshot</span><span class="sub" style="margin-left:auto;color:#fff;opacity:.9;">Quarterly Base Quota Only</span></div>
-<div class="pad">
-<div class="title" style="margin-bottom:10px">Team — Quarterly Goal</div>
-<div class="row" style="align-items:center; background:transparent; border:none">
-<div class="meter" style="flex:1; margin-right:12px">
-<span class="t-teal" style="width:68%"></span>
-</div>
-<div class="meta" style="min-width:120px; text-align:right"><strong>136 / 200</strong> · 68%</div>
-</div>
-<div class="title" style="margin:16px 0 10px">Individual Progress (Quarterly)</div>
-<div class="rows-pill">
-<div class="row" style="align-items:center; padding:12px">
-<div class="name">Hannah</div>
-<div class="meter" style="flex:1; margin:0 12px">
-<span class="t-green" style="width:72%"></span>
-</div>
-<div class="val">18 / 25 · 72%</div>
-</div>
-<div class="row" style="align-items:center; padding:12px">
-<div class="name">Megan</div>
-<div class="meter" style="flex:1; margin:0 12px">
-<span class="t-coral" style="width:42%"></span>
-</div>
-<div class="val">10 / 24 · 42%</div>
-</div>
-<div class="row" style="align-items:center; padding:12px">
-<div class="name">Sydney</div>
-<div class="meter" style="flex:1; margin:0 12px">
-<span class="t-yellow" style="width:58%"></span>
-</div>
-<div class="val">14 / 24 · 58%</div>
-</div>
-<div class="row" style="align-items:center; padding:12px">
-<div class="name">Shy</div>
-<div class="meter" style="flex:1; margin:0 12px">
-<span class="t-green" style="width:75%"></span>
-</div>
-<div class="val">18 / 24 · 75%</div>
-</div>
-<div class="row" style="align-items:center; padding:12px">
-<div class="name">Montana</div>
-<div class="meter" style="flex:1; margin:0 12px">
-<span class="t-yellow" style="width:36%"></span>
-</div>
-<div class="val">9 / 25 · 36%</div>
-</div>
-</div>
+<!-- Quota Snapshot -->
+<div class="card" id="quota">
+<div class="head">Quota Snapshot <span class="sub" style="margin-left:8px; opacity:.9">Quarterly Base Only</span></div>
+<div class="pad" id="quota-body">
+<!-- quota renders here -->
 </div>
 </div>
 <div class="pad"></div>
-<!-- Comments & Concerns -->
-<div class="card help" id="cc" style="border-radius:18px; overflow:hidden;">
-<div class="head"><span>Comments &amp; Concerns</span><span class="sub" style="color:white;opacity:.9;">Send a note to the inbox</span></div>
+<!-- Quick Links -->
+<div class="card" id="quick-links">
+<div class="head">Quick Links</div>
 <div class="pad">
-<div class="f-row">
-<label for="cc-text">Share any comments, concerns, or ideas</label>
-<textarea id="cc-text" placeholder="Type here..."></textarea>
+<div id="enrollment-links"></div>
+<div style="font-weight:800; font-size:13px; letter-spacing:.4px; color:#6b7380; text-transform:uppercase; margin-bottom:6px">Enrollment</div>
+<div class="list">
+<a class="row" href="https://app.hubspot.com/contacts/20717024/objects/0-3/views/my/board" rel="noopener" target="_blank"><span class="title">HubSpot</span></a>
+<a class="row" href="https://trello.com/b/Ds2LQfzj/the-piano-place" rel="noopener" target="_blank"><span class="title">Trello</span></a>
+<a class="row" href="https://share.hsforms.com/1R2qMOoHiQJauAQfW0Y6oZQcc1cw" rel="noopener" target="_blank"><span class="title">Registration Form</span></a>
+<a class="row" href="https://share.hsforms.com/10JAeGrHoQNefSDQnzZjHYwcc1cw" rel="noopener" target="_blank"><span class="title">Withdrawal Form</span></a>
+<a class="row" href="https://docs.google.com/spreadsheets/d/1Maggdc4bKH-cbBnHcbvH4q677RH4HnElo76x1Ifa-3k/edit?usp=sharing" rel="noopener" target="_blank"><span class="title">Sales Tracking</span></a>
+<a class="row" href="https://sites.google.com/thepianoplaceutah.com/enrollment-team-hub/home?authuser=1&amp;pli=1" rel="noopener" target="_blank"><span class="title">Enrollment Hub</span></a>
 </div>
-<div class="actions" style="justify-content:flex-end">
-<button class="btn" id="cc-submit">Submit</button>
+<div style="height:10px"></div>
+<div style="font-weight:800; font-size:13px; letter-spacing:.4px; color:#6b7380; text-transform:uppercase; margin-bottom:6px">Opus</div>
+<div class="list" style="display:grid; grid-template-columns:1fr 1fr; gap:8px">
+<a class="row" href="https://thepianoplaceutah.opus1.io/today" rel="noopener" target="_blank"><span class="title">The Piano Place</span></a>
+<a class="row" href="https://greateraustinmusicacademy.opus1.io/today" rel="noopener" target="_blank"><span class="title">Greater Austin Music Academy</span></a>
+<a class="row" href="https://gwinnettschoolofmusic.opus1.io/today" rel="noopener" target="_blank"><span class="title">Gwinnett School of Music</span></a>
+<a class="row" href="https://artsacademy.opus1.io/dashboard" rel="noopener" target="_blank"><span class="title">Arts Academy</span></a>
+<a class="row" href="https://champaignschoolofmusic.opus1.io/dashboard" rel="noopener" target="_blank"><span class="title">Champaign School of Music</span></a>
+<a class="row" href="https://southloopschoolofmusic.opus1.io/dashboard" rel="noopener" target="_blank"><span class="title">South Loop School of Music</span></a>
+<a class="row" href="https://flourishmusicacademy.opus1.io/today" rel="noopener" target="_blank"><span class="title">Flourish Music Academy</span></a>
+<a class="row" href="https://musiclearningcenter.opus1.io/today" rel="noopener" target="_blank"><span class="title">Music Learning Center</span></a>
 </div>
-<div class="meta" style="margin-top:8px">This sends directly to the inbox.</div>
+<div style="height:10px"></div>
+<div style="font-weight:800; font-size:13px; letter-spacing:.4px; color:#6b7380; text-transform:uppercase; margin-bottom:6px">Team</div>
+<div class="list">
+<a class="row" href="#"><span class="title">Enrollment Calendar</span></a>
+<a class="row" href="#"><span class="title">Request Time Off</span></a>
+<a class="row" href="#"><span class="title">Team Policies</span></a>
+<a class="row" href="#"><span class="title">Weekly Meeting Link</span></a>
+<a class="row" href="#"><span class="title">One‑on‑one Meeting Link</span></a>
+<a class="row" href="#"><span class="title">Training Resources</span></a>
+<a class="row" href="#quota"><span class="title">Quotas</span></a>
 </div>
-</div>
-<div class="pad"></div>
-<!-- More Links (collapsible) -->
-<div class="card collapsible" id="more-links">
-<div class="head" onclick="toggleMoreLinks()">More Links <span class="sub">Less‑used shortcuts</span></div>
-<div class="pad content">
-<nav class="list">
-<a class="link row" href="#"><span class="title">Time‑Off Request</span><span class="meta">Form</span></a>
-<a class="link row" href="#"><span class="title">Weekly Meeting</span><span class="meta">Agenda</span></a>
-<a class="link row" href="#"><span class="title">1:1 Zoom Link</span><span class="meta">Join</span></a>
-<a class="link row" href="#"><span class="title">Enrollment Calendar</span><span class="meta">Schedule</span></a>
-<a class="link row" href="#"><span class="title">Teacher Pages</span><span class="meta">Contacts</span></a>
-<a class="link row" href="#"><span class="title">Questions / Ideas</span><span class="meta">Post &amp; track</span></a>
-<a class="link row" href="#"><span class="title">Training Resources</span><span class="meta">Videos &amp; docs</span></a>
-</nav>
 </div>
 </div>
 </aside>
 </div>
 </main>
 <script>
-    // Header date
-    (function(){
-      const d = new Date();
-      const opts = { weekday:'short', month:'short', day:'numeric' };
-      const pill = document.getElementById('today-pill');
-      if(pill){ pill.textContent = new Intl.DateTimeFormat('en-US', opts).format(d); }
-    })();
+  // Utilities
+  function getLS(k, f){ try{ const v = localStorage.getItem(k); return v? JSON.parse(v): f; } catch(e){ return f; } }
+  function fmtDate(d){ return new Intl.DateTimeFormat('en-US', {weekday:'short', month:'short', day:'numeric'}).format(d); }
 
-    // Auto-fill today's date
-    (function(){
-      const d = new Date();
-      const mm = String(d.getMonth()+1).padStart(2,'0');
-      const dd = String(d.getDate()).padStart(2,'0');
-      const yyyy = d.getFullYear();
-      const el = document.getElementById('date');
-      if(el){ el.value = mm + '-' + dd + '-' + yyyy; }
-    })();
+  // Header date
+  document.getElementById('today-pill').textContent = fmtDate(new Date());
 
-    // Scale button active + hidden value
-    (function(){
-      const container = document.getElementById('load-buttons');
-      const hidden = document.getElementById('load');
-      if(!container || !hidden) return;
-      container.querySelectorAll('.scale-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          container.querySelectorAll('.scale-btn').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          hidden.value = btn.dataset.val;
-        });
+  // People list for name dropdown (from teamMembers)
+  (function(){
+    const list = getLS('teamMembers', []);
+    const sel = document.getElementById('username');
+    if(sel && list.length){
+      list.forEach(p => {
+        const opt = document.createElement('option'); opt.textContent = p.name; sel.appendChild(opt);
       });
-    })();
-
-    // Validate responsibilities + selected scale
-    function validateCheckin(){
-      const boxes = document.querySelectorAll('#resp-group input[type="checkbox"]');
-      let anyChecked = false;
-      boxes.forEach(b => { if(b.checked) anyChecked = true; });
-      if(!anyChecked){
-        alert('Please select at least one responsibility.');
-        return false;
-      }
-      const loadVal = document.getElementById('load').value;
-      if(!loadVal){
-        alert('Please select a number for how your load felt today.');
-        return false;
-      }
-      return true;
     }
+    // today date autofill
+    const d = new Date(); const mm = String(d.getMonth()+1).padStart(2,'0'); const dd = String(d.getDate()).padStart(2,'0'); const yyyy=d.getFullYear();
+    const el = document.getElementById('date'); if(el){ el.value = mm+'-'+dd+'-'+yyyy; }
+  })();
 
-    // Collapsible "More Links"
-    function toggleMoreLinks(){
-      var el = document.getElementById('more-links');
-      if(!el) return;
-      if(el.classList.contains('open')) el.classList.remove('open');
-      else el.classList.add('open');
+  // Announcements
+  (function(){
+    const anns = getLS('announcements', []);
+    const list = document.getElementById('ann-list');
+    if(!list){return}
+    if(!anns.length){
+      list.innerHTML = '<div class="meta">No announcements yet.</div>';
+      return;
     }
-  
-// Save Daily Check-In to localStorage and redirect to Admin
-function onSubmitCheckin(e){
-  if(e) e.preventDefault();
-  if(!validateCheckin()) return false;
-  // Collect fields
-  const name = document.getElementById('username')?.value || '';
-  const date = document.getElementById('date')?.value || '';
-  const load = document.getElementById('load')?.value || '';
-  const deals = (document.querySelector('input[name="deals"]:checked')||{}).value || '';
-  const tasks = (document.querySelector('input[name="tasks"]:checked')||{}).value || '';
-  const resps = [...document.querySelectorAll('#resp-group input[type="checkbox"]:checked')].map(x=>x.value);
-  const notes = document.getElementById('notes')?.value || '';
-  const rec = { ts: Date.now(), name, date, load, deals, tasks, responsibilities: resps, notes };
-  try{
-    const list = JSON.parse(localStorage.getItem('checkins')||'[]');
-    list.unshift(rec);
-    localStorage.setItem('checkins', JSON.stringify(list));
-  }catch(err){ console.error(err); }
-  // Redirect to Admin
-  window.location.href = 'admin_dashboard_COMMAND_CENTER_smooth_WIRED.html';
-  return false;
-}
-
-// Save Comments & Concerns to localStorage
-(function(){
-  const btn = document.getElementById('cc-submit');
-  if(btn){
-    btn.addEventListener('click', function(){
-      const text = document.getElementById('cc-text')?.value || '';
-      if(!text.trim()){ alert('Please type a comment first.'); return; }
-      try{
-        const box = JSON.parse(localStorage.getItem('inbox')||'[]');
-        box.unshift({ ts: Date.now(), text });
-        localStorage.setItem('inbox', JSON.stringify(box));
-      }catch(e){}
-      document.getElementById('cc-text').value='';
-      alert('Sent to Admin Inbox.');
+    anns.slice(0,6).forEach(a=>{
+      const row = document.createElement('div'); row.className = 'row';
+      row.innerHTML = '<div><div class="title">'+(a.title||'')+'</div><div class="meta">'+(a.tag||'')+'</div></div>';
+      list.appendChild(row);
     });
+  })();
+
+  // Today
+  (function(){
+    const t = getLS('today', {shifts:'', responsibilities:'', oneonones:''});
+    const list = document.getElementById('today-list');
+    function line(title, meta){
+      const r = document.createElement('div'); r.className='row';
+      r.innerHTML = '<div><div class="title">'+title+'</div><div class="meta">'+(meta||'—')+'</div></div>';
+      return r;
+    }
+    list.appendChild(line('Shifts', t.shifts));
+    list.appendChild(line('Responsibilities', t.responsibilities));
+    list.appendChild(line('1:1s', t.oneonones));
+  })();
+
+  // Training
+  (function(){
+    const w = getLS('thisWeek', {title:'', blip:'', video:'', notes:''});
+    const box = document.getElementById('training-body');
+    const title = w.title || 'Add a training in Admin → This Week';
+    const blip = w.blip || '—';
+    const link = w.video ? '<a class="btn" href="'+w.video+'" target="_blank" rel="noopener">Watch video</a>' : '';
+    box.innerHTML = '<div class="list" style="gap:12px"><div class="row" style="align-items:flex-start"><div><div class="title">'+title+'</div><div class="meta">'+blip+'</div></div>'+link+'</div></div>';
+  })();
+
+  // Quota
+  (function(){
+    const q = getLS('quota', {team:{current:0, goal:0}, individuals:[]});
+    const el = document.getElementById('quota-body');
+    const pct = q.team.goal ? Math.round((q.team.current/q.team.goal)*100) : 0;
+    el.innerHTML = ''
+      + '<div class="title" style="margin-bottom:10px">Team — Quarterly Goal</div>'
+      + '<div class="row" style="align-items:center; background:transparent; border:none">'
+      + '  <div class="meter" style="flex:1; margin-right:12px"><span class="t-teal" style="width:'+pct+'%"></span></div>'
+      + '  <div class="meta" style="min-width:140px; text-align:right"><strong>'+q.team.current+' / '+q.team.goal+'</strong> · '+pct+'%</div>'
+      + '</div>'
+      + '<div class="title" style="margin:16px 0 10px">Individual Progress (Quarterly)</div>';
+    const wrap = document.createElement('div'); wrap.className='rows-pill';
+    (q.individuals||[]).forEach(p=>{
+      const cur = Number(p.current||0), goal = Number(p.goal||0);
+      const ipct = goal ? Math.round((cur/goal)*100) : 0;
+      const barClass = ipct<50? 't-coral' : (ipct<80? 't-yellow':'t-green');
+      const row = document.createElement('div'); row.className='row'; row.style.cssText='align-items:center; padding:12px';
+      row.innerHTML = '<div class="name">'+(p.name||'')+'</div>'
+        + '<div class="meter" style="flex:1; margin:0 12px"><span class="'+barClass+'" style="width:'+ipct+'%"></span></div>'
+        + '<div class="val">'+cur+' / '+goal+' · '+ipct+'%</div>';
+      wrap.appendChild(row);
+    });
+    el.appendChild(wrap);
+  })();
+
+  // Comments & Concerns submit → push to 'inbox'
+  document.getElementById('cc-submit').addEventListener('click', function(e){
+    e.preventDefault();
+    const v = (document.getElementById('cc-text').value||'').trim();
+    if(!v) return;
+    const inbox = getLS('inbox', []);
+    inbox.unshift({ ts: Date.now(), text: v });
+    localStorage.setItem('inbox', JSON.stringify(inbox));
+    document.getElementById('cc-text').value='';
+    alert('Sent to admin inbox.');
+  });
+
+  // Daily check-in submit → push to 'checkins'
+  document.getElementById('submitCheckin').addEventListener('click', function(e){
+    e.preventDefault();
+    const name = document.getElementById('username').value;
+    const date = document.getElementById('date').value;
+    const load = (document.querySelector('input[name="load"]:checked')||{}).value || '';
+    const deals = (document.querySelector('input[name="deals"]:checked')||{}).value || '';
+    const tasks = (document.querySelector('input[name="tasks"]:checked')||{}).value || '';
+    const notes = document.getElementById('notes').value || '';
+    if(!name || !date || !load || !deals || !tasks){ alert('Please complete required fields.'); return; }
+    const obj = { ts: Date.now(), name, date, load, deals, tasks, notes };
+    const list = getLS('checkins', []); list.unshift(obj);
+    localStorage.setItem('checkins', JSON.stringify(list));
+    alert('Check‑in saved.');
+  });
+
+  // Live‑update: if Admin saves in another tab, refresh this page automatically
+  window.addEventListener('storage', function(ev){
+    const keys = ['quota','today','announcements','thisWeek','teamMembers'];
+    if(keys.includes(ev.key)){ location.reload(); }
+  });
+</script>
+<script>
+(function(){
+  function getLS(k, f){ try{ const v = localStorage.getItem(k); return v? JSON.parse(v): f; } catch(e){ return f; } }
+  const inbox = getLS('inbox', []);
+  const lastViewed = Number(localStorage.getItem('inboxLastViewed')||0);
+  var unread = 0;
+  if (Array.isArray(inbox)){
+    unread = inbox.filter(m => !m.ts || (m.ts > lastViewed)).length;
+  }
+  var badge = document.getElementById('cc-badge');
+  if(badge){
+    if(unread > 0){ badge.textContent = unread; badge.style.display = 'inline-block'; }
+    else { badge.style.display = 'none'; }
   }
 })();
-</script>
-</body>
+</script></body>
 </html>
