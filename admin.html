@@ -313,5 +313,12 @@ function exportCheckinsCSV(){
   });
   downloadCSV('daily_checkins.csv', rows);
 }
-</script></body>
+</script><script>
+(function(){
+  // Optional soft gate: if not unlocked this session, you can still proceed, or redirect:
+  // If you want to enforce the gate, uncomment the redirect line below.
+  // if(!sessionStorage.getItem('adminUnlocked')) { window.location.href = 'admin_access.html'; }
+})();
+</script>
+</body>
 </html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Studios Directory</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bg:#f7f8fb; --surface:#fff; --ink:#1d2330; --muted:#6b7380;
+  --primary:#2e4a7f; --primary-600:#3b5da0; --accent:#2ab7a9; --accent2:#3cd6c9;
+  --border:#e6eaf5; --shadow:0 6px 24px rgba(25,28,33,.06), 0 2px 8px rgba(25,28,33,.04);
+  --radius:16px; --gap:18px;
+}
+*{box-sizing:border-box} body{ margin:0; background:var(--bg); color:var(--ink); font-family:Inter,system-ui; line-height:1.45 }
+.site-header{ position:sticky; top:0; z-index:10; background:linear-gradient(90deg,var(--primary),var(--primary-600)); color:#fff; padding:12px 20px; box-shadow:0 2px 10px rgba(0,0,0,.08) }
+.wrap{ max-width:1200px; margin:20px auto; padding:0 20px }
+.header-inner{ max-width:1200px; margin:0 auto; display:flex; align-items:center; gap:16px }
+.brand{ display:flex; align-items:center; gap:12px; font-weight:800; letter-spacing:.4px }
+.brand .logo{ width:182px; height:46px; display:flex; align-items:center; justify-content:center }
+.brand .logo img{ width:100%; height:100%; object-fit:contain; filter:brightness(0) invert(1) }
+.brand-title{ font-weight:800 } .date-pill{ margin-left:8px; padding:8px 12px; border-radius:999px; background:#fff1; border:1px solid #ffffff2a }
+
+.controls{
+  position:sticky; top:64px; z-index:5;
+  background:var(--surface); border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow);
+  padding:12px 14px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+}
+.controls label{ font-size:13px; font-weight:800; color:#334155 }
+select, input[type="text"]{ padding:10px 12px; border:1px solid var(--border); border-radius:10px; font:inherit; background:#fff }
+select:focus, input[type="text"]:focus{ outline:none; border-color:var(--accent); box-shadow:0 0 0 3px rgba(42,183,169,.15) }
+.btn{ border:none; border-radius:10px; padding:10px 14px; font-weight:800; color:#fff; background:var(--primary); box-shadow:0 6px 16px rgba(46,74,127,.18); cursor:pointer; text-decoration:none; display:inline-flex; align-items:center }
+.btn.ghost{ background:#eef2ff; color:#2e4a7f }
+
+.grid{ display:grid; grid-template-columns: 1fr; gap:18px; margin-top:14px }
+.card{ background:var(--surface); border:1px solid var(--border); border-radius:16px; box-shadow:var(--shadow); overflow:hidden }
+.head{ padding:14px 18px; font-weight:800; background:linear-gradient(90deg,var(--accent),var(--accent2)); color:#0b1220 }
+.pad{ padding:16px 18px }
+
+.state-summary .kv{ width:100%; border-collapse:collapse }
+.state-summary .kv th, .state-summary .kv td{ border-bottom:1px solid #eef0f5; padding:10px 8px; text-align:left }
+.state-summary .kv th{ width:180px; background:#fafbff; font-weight:800; color:#334155 }
+.badge{ display:inline-block; padding:6px 10px; border-radius:999px; background:#f0f4ff; border:1px solid #e6eaf5; font-size:12px; font-weight:700 }
+.list{ display:grid; gap:8px }
+.row{ display:flex; justify-content:space-between; align-items:center; background:#fafbff; border:1px solid #eef0f5; border-radius:12px; padding:10px 12px }
+.title{ font-weight:800 } .meta{ font-size:13px; color:#6b7380 }
+.notice{ color:#6b7380; font-size:14px }
+iframe.studio{ width:100%; border:none; min-height:1000px; background:#fff }
+.note{ font-size:12px; color:#6b7380 }
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="logo"><img src="../assets/logo.png" alt="ONE Music Schools"></div>
+      <div class="brand-title">ENROLLMENT HUB — Studios</div>
+      <div class="date-pill" id="today-pill">Today</div>
+    </div>
+    <div class="spacer"></div>
+    <a class="btn ghost" href="../index.html" target="_self">← Back to Home</a>
+  </div>
+</header>
+
+<main class="wrap">
+  <!-- Persistent Filter Bar -->
+  <div class="controls" id="filters">
+    <label for="state">State</label>
+    <select id="state">
+      <option value="">All</option>
+      <option value="CT">Connecticut</option>
+    </select>
+
+    <label for="studio">Studio</label>
+    <select id="studio" disabled>
+      <option value="">Choose a state first</option>
+    </select>
+
+    <span class="note">Tip: Choose a state to see state details. Choose a studio to load full studio info here.</span>
+  </div>
+
+  <div class="grid">
+    <!-- State summary or studio content will render here -->
+    <section class="card" id="content">
+      <div class="head" id="content-head">Browse Studios</div>
+      <div class="pad" id="content-body">
+        <p class="notice">Use the filters above to view a state's overview or a specific studio’s full details without leaving this page.</p>
+        <div class="list">
+          <div class="row"><span class="title">Connecticut</span><span class="meta">Studios: Danbury</span></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script>
+const DS = {
+  states: {
+    "CT": {
+      name: "Connecticut",
+      studios: [
+        { key: "danbury", name: "Music Learning Center — Danbury", path: "danbury.html", phone: "203‑748‑1444", city: "Danbury" }
+      ],
+      notes: [
+        "Pricing and programs vary by studio.",
+        "Most locations offer piano, guitar, voice; some offer orchestral and band instruments."
+      ]
+    }
+  }
+};
+
+function fmtDate(d){ return new Intl.DateTimeFormat('en-US', {weekday:'short', month:'short', day:'numeric'}).format(d); }
+document.getElementById('today-pill').textContent = fmtDate(new Date());
+
+const stateSel = document.getElementById('state');
+const studioSel = document.getElementById('studio');
+const head = document.getElementById('content-head');
+const body = document.getElementById('content-body');
+
+function loadState(stateCode){
+  const st = DS.states[stateCode];
+  studioSel.innerHTML = "";
+  if(st){
+    studioSel.disabled = false;
+    const opt0 = document.createElement('option'); opt0.value=""; opt0.textContent = "All studios in "+st.name;
+    studioSel.appendChild(opt0);
+    st.studios.forEach(s => {
+      const opt = document.createElement('option'); opt.value = s.key; opt.textContent = s.name; studioSel.appendChild(opt);
+    });
+
+    head.textContent = st.name+" — Overview";
+    body.innerHTML = "";
+    const box = document.createElement('div');
+    box.className = "state-summary";
+    box.innerHTML = `
+      <table class="kv">
+        <tr><th>Studios</th><td>${st.studios.map(s=>s.name).join(", ")}</td></tr>
+        <tr><th>Contact</th><td>${st.studios.map(s=>s.phone).join(" • ")}</td></tr>
+        <tr><th>Notes</th><td><ul>${st.notes.map(n=>"<li>"+n+"</li>").join("")}</ul></td></tr>
+      </table>
+    `;
+    body.appendChild(box);
+  } else {
+    studioSel.disabled = true;
+    studioSel.innerHTML = '<option value="">Choose a state first</option>';
+    head.textContent = "Browse Studios";
+    body.innerHTML = '<p class="notice">Use the filters above to view a state or a specific studio.</p>';
+  }
+}
+
+async function loadStudio(stateCode, studioKey){
+  const st = DS.states[stateCode];
+  if(!st){ return; }
+  const studio = st.studios.find(s => s.key === studioKey);
+  if(!studio){ loadState(stateCode); return; }
+
+  head.textContent = studio.name;
+
+  // Fetch the studio page and inject its main content
+  try{
+    const resp = await fetch(studio.path);
+    const text = await resp.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(text, 'text/html');
+    let main = doc.querySelector('main');
+    if(!main){ main = doc.body; }
+    body.innerHTML = "";
+    // import nodes to current doc
+    body.append(...Array.from(main.children).map(n => n.cloneNode(true)));
+  } catch(e){
+    body.innerHTML = '<p class="notice">Unable to load studio page.</p>';
+  }
+}
+
+stateSel.addEventListener('change', e => {
+  const val = e.target.value;
+  if(!val){ loadState(""); return; }
+  loadState(val);
+});
+
+studioSel.addEventListener('change', e => {
+  const st = stateSel.value;
+  const val = e.target.value;
+  if(!val){
+    loadState(st);
+    return;
+  }
+  loadStudio(st, val);
+});
+
+// Initialize (optional: auto-select CT if you like)
+loadState("");
+</script>
+</body>
+</html>

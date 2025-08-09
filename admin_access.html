@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Admin Access</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#f7f8fb; --surface:#fff; --ink:#1d2330; --muted:#6b7380; --primary:#2e4a7f; --accent:#2ab7a9; --accent2:#3cd6c9; --border:#e7eaf2; --shadow:0 6px 24px rgba(25,28,33,.06), 0 2px 8px rgba(25,28,33,.04) }
+  body{ margin:0; font-family:Inter,system-ui; color:var(--ink); background:var(--bg) }
+  .wrap{ max-width:560px; margin:40px auto; padding:0 20px }
+  .brand{ display:flex; align-items:center; gap:12px; margin-bottom:16px }
+  .logo{ width:36px; height:36px; border-radius:8px; background:#2e4a7f; color:#fff; display:grid; place-items:center; font-weight:800 }
+  .card{ background:var(--surface); border-radius:16px; box-shadow:var(--shadow); overflow:hidden; border:1px solid var(--border) }
+  .head{ padding:16px 18px; font-weight:800; background:linear-gradient(90deg, var(--accent), var(--accent2)); color:#fff }
+  .pad{ padding:18px }
+  label{ font-weight:700; font-size:14px; display:block; margin-bottom:6px }
+  input{ width:100%; padding:12px 14px; border-radius:10px; border:1px solid var(--border); font:inherit }
+  .btn{ border:none; border-radius:10px; padding:10px 14px; font-weight:800; color:#fff; background:var(--primary); box-shadow:0 6px 16px rgba(46,74,127,.18); cursor:pointer }
+  .muted{ color:var(--muted) }
+  .row{ display:flex; gap:10px; align-items:center; justify-content:flex-end; margin-top:12px }
+  .error{ color:#b42318; margin-top:10px; display:none }
+  .hint{ font-size:13px; color:var(--muted) }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="brand"><div class="logo">EN</div><div style="font-weight:800; letter-spacing:.3px">ENROLLMENT HUB — Admin</div></div>
+    <div class="card">
+      <div class="head">Enter Password</div>
+      <div class="pad">
+        <p class="hint">This is not a login—just a simple passcode to open your private dashboard.</p>
+        <label for="pw">Password</label>
+        <input id="pw" type="password" placeholder="Enter password"/>
+        <div class="row">
+          <button class="btn" onclick="unlock()">Unlock</button>
+        </div>
+        <div id="msg" class="error">Incorrect password. Try again.</div>
+      </div>
+    </div>
+    <p class="hint" style="margin-top:12px"><a href="index.html">← Back to Home</a></p>
+  </main>
+
+<script>
+  function unlock(){
+    const v = document.getElementById('pw').value;
+    if(v === 'July2024'){
+      sessionStorage.setItem('adminUnlocked','1');
+      window.location.href = 'admin.html';
+    } else {
+      const m = document.getElementById('msg');
+      m.style.display = 'block';
+    }
+  }
+</script>
+</body>
+</html>
